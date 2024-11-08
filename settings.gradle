@@ -1,0 +1,38 @@
+include ':shared-domain-models'
+findProject(':shared-domain-models').projectDir = file("./shared/domain/models")
+
+include ':shared-domain-use-cases'
+findProject(':shared-domain-use-cases').projectDir = file("./shared/domain/use-cases")
+
+include ':cuentaflex-applications-account-service'
+findProject(':cuentaflex-applications-account-service').projectDir = file("./cuentaflex/applications/account-service")
+
+include ':cuentaflex-domain-models'
+findProject(':cuentaflex-domain-models').projectDir = file("./cuentaflex/domain/models")
+
+include ':cuentaflex-domain-use-cases'
+findProject(':cuentaflex-domain-use-cases').projectDir = file("./cuentaflex/domain/use-cases")
+
+include 'cuentaflex-domain-driven-ports'
+findProject(':cuentaflex-domain-driven-ports').projectDir = file("./cuentaflex/domain/driven-ports")
+
+include ':cuentaflex-infrastructure-driven-adapters-mongo-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-mongo-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/mongo-repository")
+
+include ':cuentaflex-infrastructure-driven-adapters-postgres-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-postgres-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/postgres-repository")
+
+include ':cuentaflex-infrastructure-entry-points-rest'
+findProject(':cuentaflex-infrastructure-entry-points-rest').projectDir = file("./cuentaflex/infrastructure/entry-points/rest")
+
+include ':core-cryptography-aes'
+findProject(':core-cryptography-aes').projectDir = file("./core/cryptography/aes")
+
+include ':shared-infrastructure-entry-points-din'
+findProject(':shared-infrastructure-entry-points-din').projectDir = file("./shared/infrastructure/entry-points/din")
+
+include ':core-security-authentication'
+findProject(':core-security-authentication').projectDir = file("./core/security/authentication")
+
+include ':core-security-jwt'
+findProject(':core-security-jwt').projectDir = file("./core/security/jwt")
