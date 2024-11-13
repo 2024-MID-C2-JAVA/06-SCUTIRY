@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':usescases')
+}
+
+tasks.named('bootJar') {
+    enabled = true
+    mainClass = 'co.sofka.MainApplication'
+}

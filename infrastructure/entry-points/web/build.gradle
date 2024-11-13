@@ -1,0 +1,19 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':usescases')
+    implementation project(':ports')
+    implementation project(':din')
+    implementation project(':cryptography')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+}
+
+tasks.named('bootJar') {
+    enabled = true
+    mainClass = 'co.sofka.MainApplication'
+}

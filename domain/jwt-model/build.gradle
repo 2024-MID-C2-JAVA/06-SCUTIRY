@@ -1,0 +1,4 @@
+tasks.named('bootJar') {
+    enabled = true
+    mainClass = 'co.sofka.MainApplication'
+}

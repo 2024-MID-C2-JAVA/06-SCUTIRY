@@ -1,0 +1,31 @@
+rootProject.name = 'ArquitecturaHexagonal'
+
+include ':model'
+include ':usescases'
+include ':postgreSQL-repository'
+include ':web'
+include ':app-service'
+include ':mongo-repository'
+include ':web-security'
+include ':din'
+include ':cryptography'
+include ':ports'
+include ':jwt-ports'
+include ':jwt-model'
+include ':jwt-usescases'
+include ':entry-point-security'
+
+findProject(':model').projectDir=file('./domain/model')
+findProject(':usescases').projectDir=file('./applications/usescases')
+findProject(':postgreSQL-repository').projectDir=file('./infrastructure/driven-adapters/postgreSQL-repository')
+findProject(':web').projectDir=file('./infrastructure/entry-points/web')
+findProject(':app-service').projectDir=file('./applications/app-service')
+findProject(':mongo-repository').projectDir=file("./infrastructure/driven-adapters/mongo-repository")
+findProject(':web-security').projectDir=file("./infrastructure/helpers/web-security");
+findProject(':din').projectDir=file("./infrastructure/helpers/din")
+findProject(':cryptography').projectDir=file('./infrastructure/helpers/cryptography')
+findProject(':ports').projectDir=file('./domain/ports')
+findProject(':jwt-ports').projectDir=file('./domain/jwt-ports')
+findProject(':jwt-model').projectDir=file('./domain/jwt-model')
+findProject(':jwt-usescases').projectDir=file('./applications/jwt-usescases')
+findProject(':entry-point-security').projectDir=file('./infrastructure/entry-points/entry-point-security')

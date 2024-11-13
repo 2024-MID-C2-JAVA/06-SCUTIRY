@@ -1,0 +1,12 @@
+dependencies {
+
+    implementation project(':jwt-model')
+    implementation project(':jwt-ports')
+
+    implementation('org.springframework.boot:spring-boot-starter')
+}
+
+tasks.named('bootJar') {
+    enabled = true
+    mainClass = 'co.sofka.MainApplication'
+}
