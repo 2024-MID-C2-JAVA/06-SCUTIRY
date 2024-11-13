@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/event-publisher/architecture-hex.event-publisher.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/event-publisher/architecture-hex.event-publisher.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/web-security/architecture-hex.web-security.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/web-security/architecture-hex.web-security.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/helper/jwt/helper.architecture-hex.jwt.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/helper/jwt/helper.architecture-hex.jwt.main~1.iml" />
+    </modules>
+  </component>
+</project>
