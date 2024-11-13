@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/applications/app-service" />
+            <option value="$PROJECT_DIR$/domain/model" />
+            <option value="$PROJECT_DIR$/domain/usecases" />
+            <option value="$PROJECT_DIR$/infrastructure/driven-adapters/event-publisher" />
+            <option value="$PROJECT_DIR$/infrastructure/driven-adapters/jwt-postgres-repository" />
+            <option value="$PROJECT_DIR$/infrastructure/driven-adapters/mongodb-repository" />
+            <option value="$PROJECT_DIR$/infrastructure/driven-adapters/postgres-repository" />
+            <option value="$PROJECT_DIR$/infrastructure/entry-points/din" />
+            <option value="$PROJECT_DIR$/infrastructure/entry-points/web" />
+            <option value="$PROJECT_DIR$/infrastructure/entry-points/web-security" />
+            <option value="$PROJECT_DIR$/infrastructure/helper/aes-encryption" />
+            <option value="$PROJECT_DIR$/infrastructure/helper/jwt" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

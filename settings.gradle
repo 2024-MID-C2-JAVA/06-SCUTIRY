@@ -1,0 +1,27 @@
+rootProject.name = 'architecture-hex'
+
+include ':model'
+include ':use-cases'
+include ':app-service'
+include ':postgres-repository'
+include ':mongodb-repository'
+include ':jwt-postgres-repository'
+include ':event-publisher'
+include ':aes-encryption'
+include ':web'
+include ':web-security'
+include ':din'
+include ':jwt'
+
+findProject(':model').projectDir = file('./domain/model')
+findProject(':use-cases').projectDir = file('./domain/usecases')
+findProject(':app-service').projectDir = file('./applications/app-service')
+findProject(':postgres-repository').projectDir = file('./infrastructure/driven-adapters/postgres-repository')
+findProject(':mongodb-repository').projectDir = file('./infrastructure/driven-adapters/mongodb-repository')
+findProject(':jwt-postgres-repository').projectDir = file('./infrastructure/driven-adapters/jwt-postgres-repository')
+findProject(':event-publisher').projectDir = file('./infrastructure/driven-adapters/event-publisher')
+findProject(':aes-encryption').projectDir = file('./infrastructure/helper/aes-encryption')
+findProject(':web').projectDir = file('./infrastructure/entry-points/web')
+findProject(':web-security').projectDir = file('./infrastructure/entry-points/web-security')
+findProject(':din').projectDir = file('./infrastructure/entry-points/din')
+findProject(':jwt').projectDir = file('./infrastructure/helper/jwt')
