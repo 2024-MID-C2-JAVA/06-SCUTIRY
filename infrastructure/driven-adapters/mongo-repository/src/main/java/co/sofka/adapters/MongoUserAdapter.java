@@ -45,11 +45,6 @@ public class MongoUserAdapter implements AuthRepository {
                     .setRole(Roles.USER)
                     .build();
 
-            CustomerDocument customerDocument = new CustomerDocument();
-
-            customerDocument.setName(userRequest.getFirstname() + " " + userRequest.getLastname());
-
-            user.setCustomer(customerDocument);
 
             mongoTemplate.save(user);
 

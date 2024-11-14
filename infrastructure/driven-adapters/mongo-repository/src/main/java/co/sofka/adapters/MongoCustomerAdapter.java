@@ -5,7 +5,7 @@ import co.sofka.config.JwtService;
 import co.sofka.data.CustomerDocument;
 import co.sofka.data.UserDocument;
 import co.sofka.exception.GetNotFoundException;
-import co.sofka.CustomerRepository;
+import co.sofka.out.CustomerRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -26,13 +26,13 @@ public class MongoCustomerAdapter implements CustomerRepository {
     }
 
     @Override
-    public void createCustomer(Customer customer,String token) {
+    public Customer createCustomer(Customer customer, String token) {
         CustomerDocument customerDocument = new CustomerDocument();
         customerDocument.setName(customer.getName());
         customerDocument.setDeleted(false);
         customerDocument.setCreatedAt(LocalDate.now());
 
-        String email=jwtService.extractUsername(token);
+        String email = jwtService.extractUsername(token);
 
         Query query = new Query(Criteria.where("email").is(email));
 
@@ -41,13 +41,19 @@ public class MongoCustomerAdapter implements CustomerRepository {
         assert user != null;
         user.setCustomer(customerDocument);
 
+        System.out.println("ID USUARIO: "+user.getId());
+
         mongoTemplate.save(user);
+
+        return new Customer(user.getId()
+                ,user.getCustomer().getName(),
+                user.getCustomer().getCreatedAt());
     }
 
     @Override
     public void deleteCustomer(Customer customer) {
         CustomerDocument customerDocument = mongoTemplate.findById(customer.getId(), CustomerDocument.class);
-        if(customerDocument != null) {
+        if (customerDocument != null) {
             customerDocument.setDeleted(true);
             mongoTemplate.save(customerDocument);
         }
@@ -55,9 +61,9 @@ public class MongoCustomerAdapter implements CustomerRepository {
 
     @Override
     public Customer getCustomer(Customer customer) {
-        Optional<CustomerDocument>customerDocument= Optional.ofNullable(mongoTemplate.findById(customer.getId(), CustomerDocument.class));
+        Optional<CustomerDocument> customerDocument = Optional.ofNullable(mongoTemplate.findById(customer.getId(), CustomerDocument.class));
 
-        if(customerDocument.isEmpty()) {
+        if (customerDocument.isEmpty()) {
             throw new GetNotFoundException("Customer does not exist");
         }
 
@@ -66,6 +72,18 @@ public class MongoCustomerAdapter implements CustomerRepository {
                 customerDocument.get().getName(),
                 customerDocument.get().getCreatedAt()
         );
+    }
+
+    @Override
+    public Customer getCustomerByEmail(Customer customer) {
+        Query query = new Query(Criteria.where("email").is(customer.getName()));
+        UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
+
+        assert user != null;
+
+        return new Customer(user.getId(),
+                user.getCustomer().getName(),
+                user.getCustomer().getCreatedAt());
     }
 
 }

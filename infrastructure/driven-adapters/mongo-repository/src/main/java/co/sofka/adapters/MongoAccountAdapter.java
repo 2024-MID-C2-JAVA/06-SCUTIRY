@@ -4,7 +4,7 @@ import co.sofka.Account;
 import co.sofka.data.AccountDocument;
 import co.sofka.data.UserDocument;
 import co.sofka.exception.GetNotFoundException;
-import co.sofka.AccountRepository;
+import co.sofka.out.AccountRepository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;

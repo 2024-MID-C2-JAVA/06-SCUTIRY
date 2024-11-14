@@ -15,6 +15,7 @@ public class CustomerRestController {
 
     private final CustomerHandler customerHandler;
 
+
     public CustomerRestController(CustomerHandler customerHandler) {
         this.customerHandler = customerHandler;
     }
@@ -26,10 +27,11 @@ public class CustomerRestController {
             String token = authorizationHeader.replace("Bearer ", "");
             System.out.println("TOKEN: " + token);
 
-            customerHandler.createCustomer(customerDTO.getDinBody(), token);
+            CustomerDto dto = customerHandler.createCustomer(customerDTO.getDinBody(), token);
+
 
             return ResponseEntity.ok(new ResponseCustomerMs(customerDTO.getDinHeader(),
-                    customerDTO.getDinBody(),
+                    dto,
                     new DinError(DinErrorEnum.CUSTOMER_CREATED)));
         } catch (Exception e) {
             DinError error = new DinError(DinErrorEnum.CREATION_ERROR);

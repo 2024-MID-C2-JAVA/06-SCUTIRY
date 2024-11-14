@@ -1,7 +1,7 @@
 package co.sofka.appservice.customer;
 
 import co.sofka.Customer;
-import co.sofka.CustomerRepository;
+import co.sofka.out.CustomerRepository;
 import co.sofka.rabbitMq.Bus;
 
 

@@ -9,7 +9,7 @@ import co.sofka.data.AccountTransactionEntity;
 import co.sofka.data.TransactionEntity;
 import co.sofka.exception.InvalidAmountException;
 import co.sofka.exception.TransactionNotFoundException;
-import co.sofka.TransactionRepository;
+import co.sofka.out.TransactionRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -3,7 +3,7 @@ package co.sofka.appservice.customer;
 import co.sofka.Customer;
 import co.sofka.exceptions.InvalidCreationException;
 import co.sofka.exceptions.InvalidNameCustomerException;
-import co.sofka.CustomerRepository;
+import co.sofka.out.CustomerRepository;
 
 
 public class CreateCustomerUseCase {
@@ -14,7 +14,7 @@ public class CreateCustomerUseCase {
         this.customerRepository = customerRepository;
     }
 
-    public void apply(Customer customer,String token) {
+    public Customer apply(Customer customer,String token) {
 
         if(customer == null) {
             throw new InvalidCreationException("Customer cannot be null");
@@ -24,6 +24,6 @@ public class CreateCustomerUseCase {
             throw new InvalidNameCustomerException("The customer name must not be empty or null");
         }
 
-        customerRepository.createCustomer(customer,token);
+        return customerRepository.createCustomer(customer,token);
     }
 }

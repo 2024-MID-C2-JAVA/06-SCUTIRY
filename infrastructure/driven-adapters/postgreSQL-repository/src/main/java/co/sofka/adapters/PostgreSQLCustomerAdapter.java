@@ -5,7 +5,7 @@ import co.sofka.config.PostgreSQLCustomerRepository;
 import co.sofka.data.CustomerEntity;
 import co.sofka.exception.NotFoundException;
 import co.sofka.exceptions.InvalidNameCustomerException;
-import co.sofka.CustomerRepository;
+import co.sofka.out.CustomerRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class PostgreSQLCustomerAdapter implements CustomerRepository {
     }
 
     @Override
-    public void createCustomer(Customer customer,String token) {
+    public Customer createCustomer(Customer customer, String token) {
         CustomerEntity entity = new CustomerEntity();
 
         if (customer.getName() == null || customer.getName().trim().isEmpty()) {
@@ -32,6 +32,7 @@ public class PostgreSQLCustomerAdapter implements CustomerRepository {
         entity.setCreatedAt(LocalDate.now());
         entity.setDeleted(false);
         repository.save(entity);
+        return customer;
     }
 
 
@@ -58,4 +59,11 @@ public class PostgreSQLCustomerAdapter implements CustomerRepository {
                 entity.get().getCreatedAt()
         );
     }
+
+    @Override
+    public Customer getCustomerByEmail(Customer customer) {
+        return null;
+    }
+
+
 }

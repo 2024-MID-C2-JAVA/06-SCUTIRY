@@ -3,17 +3,15 @@ package co.sofka.appservice.customer;
 import co.sofka.Customer;
 import co.sofka.out.CustomerRepository;
 
-
-public class GetCustomerByIdUseCase {
+public class GetCustomerByEmail {
 
     private final CustomerRepository customerRepository;
 
-
-    public GetCustomerByIdUseCase(CustomerRepository customerRepository) {
+    public GetCustomerByEmail(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    public Customer apply(Customer customer) {
-        return customerRepository.getCustomer(customer);
+    public Customer getCustomerByEmail(Customer customer) {
+        return customerRepository.getCustomerByEmail(customer);
     }
 }

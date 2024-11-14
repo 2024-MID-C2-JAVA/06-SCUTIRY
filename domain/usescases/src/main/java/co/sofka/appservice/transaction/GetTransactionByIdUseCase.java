@@ -1,7 +1,7 @@
 package co.sofka.appservice.transaction;
 
 import co.sofka.Transaction;
-import co.sofka.TransactionRepository;
+import co.sofka.out.TransactionRepository;
 
 import java.util.List;
 

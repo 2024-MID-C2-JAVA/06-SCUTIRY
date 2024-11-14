@@ -1,8 +1,7 @@
 package co.sofka.appservice.transaction;
 
 import co.sofka.Transaction;
-import co.sofka.exceptions.InvalidCreationException;
-import co.sofka.TransactionRepository;
+import co.sofka.out.TransactionRepository;
 import co.sofka.appservice.transaction.strategy.AccountMovementContext;
 import co.sofka.rabbitMq.Bus;
 

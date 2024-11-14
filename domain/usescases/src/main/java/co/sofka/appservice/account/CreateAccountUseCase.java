@@ -4,7 +4,7 @@ import co.sofka.Account;
 import co.sofka.exceptions.InvalidCreationException;
 import co.sofka.exceptions.InvalidFundsException;
 import co.sofka.exceptions.InvalidNumberException;
-import co.sofka.AccountRepository;
+import co.sofka.out.AccountRepository;
 import co.sofka.rabbitMq.Bus;
 
 import java.math.BigDecimal;

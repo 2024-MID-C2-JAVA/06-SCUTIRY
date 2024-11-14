@@ -23,12 +23,16 @@ public class CustomerHandler {
         this.getCustomerByIdUseCase = getCustomerByIdUseCase;
     }
 
-    public void createCustomer(CustomerDto customerDto,String authorizationHeader) {
+    public CustomerDto createCustomer(CustomerDto customerDto,String authorizationHeader) {
         try {
-            System.out.println("Header: "+authorizationHeader);
+
             Customer customer = new Customer();
             customer.setName(customerDto.getName());
-            createCustomerUseCase.apply(customer,authorizationHeader);
+            customer=createCustomerUseCase.apply(customer,authorizationHeader);
+
+            System.out.println("HANDLER CUSTOMER ID: "+customer.getId());
+
+            return new CustomerDto(customer.getId(),customer.getName(),customer.getCreatedAt());
         } catch (InvalidNameCustomerException e) {
             throw new InvalidNameCustomerException(e.getMessage());
         }
@@ -50,5 +54,4 @@ public class CustomerHandler {
                 customer.get().getCreatedAt()
         );
     }
-
 }
