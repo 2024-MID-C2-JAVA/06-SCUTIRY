@@ -1,7 +1,7 @@
 package co.sofka.handler;
 
 import co.sofka.Log;
-import co.sofka.data.LogDto;
+import co.sofka.data.LogDtoListener;
 import co.sofka.logservice.SaveLogUseCase;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,9 @@ public class LogHandler {
         this.saveLogUseCase = saveLogUseCase;
     }
 
-    public void saveLog(LogDto logDto) {
+    public void saveLog(LogDtoListener logDtoListener) {
         saveLogUseCase.apply(new Log.Builder()
-                .setMessage(logDto.getMessage())
+                .setMessage(logDtoListener.getMessage())
                 .build());
     }
 }

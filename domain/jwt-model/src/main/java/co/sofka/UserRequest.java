@@ -7,13 +7,15 @@ public class UserRequest {
     private String lastname;
     private String email;
     private String password;
+    private Role role;
 
-    private UserRequest(String id, String firstname, String lastname, String email, String password) {
+    private UserRequest(String id, String firstname, String lastname, String email, String password,Role role) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.role= role;
     }
 
     private UserRequest(String firstname, String lastname, String email, String password) {
@@ -68,6 +70,14 @@ public class UserRequest {
         this.id = id;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -79,6 +89,7 @@ public class UserRequest {
         private String lastname;
         private String email;
         private String password;
+        private Role role;
 
         public Builder id(String id) {
             this.id = id;
@@ -105,8 +116,13 @@ public class UserRequest {
             return this;
         }
 
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
         public UserRequest build() {
-            return new UserRequest(id, firstname, lastname, email, password);
+            return new UserRequest(id, firstname, lastname, email, password,role);
         }
     }
 

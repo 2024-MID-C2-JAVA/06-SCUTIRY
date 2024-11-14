@@ -42,7 +42,7 @@ public class LogEntity {
     }
 
     public Instant getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
     public void setTimestamp(Instant timestamp) {

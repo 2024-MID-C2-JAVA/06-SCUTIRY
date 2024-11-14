@@ -1,6 +1,6 @@
 package co.sofka;
 
-import co.sofka.data.LogDto;
+import co.sofka.data.LogDtoListener;
 import co.sofka.handler.LogHandler;
 import co.sofka.rabbitMq.BusListener;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -19,7 +19,7 @@ public class ErrorListener implements BusListener {
     @Override
     @RabbitListener(queues = "queue.error")
     public void receiveMessage(String message) {
-        LogDto dto=new LogDto(message);
+        LogDtoListener dto=new LogDtoListener(message);
         logHandler.saveLog(dto);
     }
 }

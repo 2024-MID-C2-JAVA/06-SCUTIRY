@@ -37,7 +37,6 @@ public class TransactionRestController {
     @PostMapping("/get")
     public ResponseEntity<ResponseTransactionMs> getTransaction(@RequestBody RequestMs<TransactionDto> dto) {
         try {
-            System.out.println("DTO ID: "+dto.getDinBody().getId());
             List<TransactionDto> transactionDtos = transactionHandler.getTransactionsByUserId(dto.getDinBody());
             return ResponseEntity.ok(new ResponseTransactionMs(dto.getDinHeader(),transactionDtos, new DinError(DinErrorEnum.TRANSACTION_CREATE)));
         } catch (Exception e) {

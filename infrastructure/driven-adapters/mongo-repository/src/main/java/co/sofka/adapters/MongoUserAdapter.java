@@ -13,9 +13,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class MongoUserAdapter implements AuthRepository {
@@ -34,19 +37,19 @@ public class MongoUserAdapter implements AuthRepository {
     public AuthenticationResponse register(UserRequest userRequest) {
 
         Query query = new Query(Criteria.where("email").is(userRequest.getEmail()));
-        UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
+        Optional<UserDocument> user = Optional.ofNullable(mongoTemplate.findOne(query, UserDocument.class));
 
-        if (user == null) {
-            user = new UserDocument.Builder()
+        if (user.isEmpty()) {
+            UserDocument userDocument = new UserDocument.Builder()
                     .setFirstName(userRequest.getFirstname())
                     .setLastName(userRequest.getLastname())
                     .setEmail(userRequest.getEmail())
                     .setPassword(passwordEncoder.encode(userRequest.getPassword()))
-                    .setRole(Roles.USER)
+                    .setRole(userRequest.getRole())
                     .build();
 
 
-            mongoTemplate.save(user);
+            mongoTemplate.save(userDocument);
 
             return AuthenticationResponse.builder().build();
         }else{

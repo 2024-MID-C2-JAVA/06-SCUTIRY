@@ -1,7 +1,9 @@
 dependencies {
     implementation project(':usescases')
     implementation project(':entry-point-sq-listener')
+    implementation project(':entry-point-log-web')
     implementation project(':postgreSQL-log-repository')
+
 
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-amqp')

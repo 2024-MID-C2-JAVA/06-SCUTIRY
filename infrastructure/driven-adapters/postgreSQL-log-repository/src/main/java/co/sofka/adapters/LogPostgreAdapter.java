@@ -6,6 +6,9 @@ import co.sofka.data.LogEntity;
 import co.sofka.rabbitMq.LogRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 public class LogPostgreAdapter implements LogRepository {
 
@@ -21,4 +24,19 @@ public class LogPostgreAdapter implements LogRepository {
         logEntity.setMessage(log.getMessage());
         postgresLogRepository.save(logEntity);
     }
+
+    @Override
+    public List<Log> getLogs() {
+        List<Log> logs = new ArrayList<>();
+        for (LogEntity logEntity : postgresLogRepository.findAll()) {
+            Log log = new Log.Builder()
+                    .setId(logEntity.getId())
+                    .setMessage(logEntity.getMessage())
+                    .setTimestamp(logEntity.getTimestamp())
+                    .build();
+            logs.add(log);
+        }
+        return logs;
+    }
+
 }

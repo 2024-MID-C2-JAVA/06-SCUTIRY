@@ -1,20 +1,16 @@
-package co.sofka;
+package co.sofka.data;
 
 import java.time.Instant;
 
-public class Log {
-
+public class LogDto {
     private int id;
     private String message;
     private Instant timestamp;
 
-    private Log(int id, String message, Instant timestamp) {
+    private LogDto(int id, String message, Instant timestamp) {
         this.id = id;
         this.message = message;
-        this.timestamp = Instant.now();
-    }
-
-    private Log() {
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -57,12 +53,12 @@ public class Log {
         }
 
         public Builder setTimestamp(Instant timestamp) {
-            this.timestamp = Instant.now();
+            this.timestamp = timestamp;
             return this;
         }
 
-        public Log build() {
-            return new Log(id, message, timestamp);
+        public LogDto build() {
+            return new LogDto(id, message, timestamp);
         }
     }
 }

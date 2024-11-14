@@ -17,6 +17,7 @@ include ':log-service'
 include ':entry-point-sq-listener'
 include ':postgreSQL-log-repository'
 include ':log-model'
+include ':entry-point-log-web'
 
 
 findProject(':model').projectDir=file('./domain/model')
@@ -36,3 +37,4 @@ findProject(':log-service').projectDir=file('./applications/log-service')
 findProject(':entry-point-sq-listener').projectDir=file('./infrastructure/entry-points/entry-point-sq-listener')
 findProject(':postgreSQL-log-repository').projectDir=file('./infrastructure/driven-adapters/postgreSQL-log-repository')
 findProject(':log-model').projectDir=file('./domain/log-model')
+findProject(':entry-point-log-web').projectDir=file('./infrastructure/entry-points/entry-point-log-web')

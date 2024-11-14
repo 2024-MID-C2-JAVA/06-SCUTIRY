@@ -1,14 +1,14 @@
 package co.sofka.data;
 
-public class LogDto {
+public class LogDtoListener {
 
     private String message;
 
-    public LogDto(String message) {
+    public LogDtoListener(String message) {
         this.message = message;
     }
 
-    public LogDto() {
+    public LogDtoListener() {
     }
 
     public String getMessage() {

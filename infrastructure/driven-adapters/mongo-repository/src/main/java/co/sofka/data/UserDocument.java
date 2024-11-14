@@ -1,5 +1,6 @@
 package co.sofka.data;
 
+import co.sofka.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +20,7 @@ public class UserDocument implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    private Roles role;
+    private Role role;
     private CustomerDocument customer;
 
 
@@ -28,7 +29,7 @@ public class UserDocument implements UserDetails {
     }
 
 
-    public UserDocument(String id, String firstName, String lastName, String email, String password, Roles role, CustomerDocument customer) {
+    public UserDocument(String id, String firstName, String lastName, String email, String password, Role role, CustomerDocument customer) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -79,11 +80,11 @@ public class UserDocument implements UserDetails {
         this.password = password;
     }
 
-    public Roles getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -132,7 +133,7 @@ public class UserDocument implements UserDetails {
         private String lastName;
         private String email;
         private String password;
-        private Roles role;
+        private Role role;
         private CustomerDocument customer;
 
         public Builder setId(String id) {
@@ -160,7 +161,7 @@ public class UserDocument implements UserDetails {
             return this;
         }
 
-        public Builder setRole(Roles role) {
+        public Builder setRole(Role role) {
             this.role = role;
             return this;
         }
