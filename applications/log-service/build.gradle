@@ -3,10 +3,22 @@ dependencies {
     implementation project(':entry-point-sq-listener')
     implementation project(':entry-point-log-web')
     implementation project(':postgreSQL-log-repository')
+    implementation project(':web-security')
 
 
+
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-amqp')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+
+
 }
 
 

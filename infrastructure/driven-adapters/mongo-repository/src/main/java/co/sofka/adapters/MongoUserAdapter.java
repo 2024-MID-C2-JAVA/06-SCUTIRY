@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -60,23 +62,31 @@ public class MongoUserAdapter implements AuthRepository {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
+
         Query query = new Query(Criteria.where("email").is(authenticationRequest.getEmail()));
         UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
+
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + authenticationRequest.getEmail());
         }
+
 
         if (!passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Invalid credentials provided");
         }
 
 
-        String jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateTokenWithRole(user, user.getRole().toString());
+
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .id(user.getId())
                 .build();
     }
+
+
 
 
 

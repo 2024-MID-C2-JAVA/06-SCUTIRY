@@ -30,7 +30,7 @@ public class JwtService {
         return generateToken(userDetails,new HashMap<>());
     }
 
-    public String generateToken(UserDetails userDetails, Map<String,Object> extraClaims){
+    public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
@@ -38,6 +38,12 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSingIngKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String generateTokenWithRole(UserDetails userDetails, String role) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
+        return generateToken(userDetails, claims);
     }
 
     public Claims extractAllClaims(String token){

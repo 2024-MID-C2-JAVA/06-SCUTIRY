@@ -40,15 +40,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null) {
+            // Obtener el rol desde el JWT
             var authoritiesClaims = jwtService.extractAllClaims(jwt).get("roles");
-            var authorities =
-                    authoritiesClaims != null ?
-                            AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesClaims.toString()) :
-                            AuthorityUtils.NO_AUTHORITIES;
+            String role = authoritiesClaims != null ? authoritiesClaims.toString() : null;
+
+            // Si hay un rol, convertirlo en autoridad
+            var authorities = (role != null) ?
+                    AuthorityUtils.createAuthorityList(role) :
+                    AuthorityUtils.NO_AUTHORITIES;
 
             UserDetails userDetails =
                     User.withUsername(userEmail)
-                            .password("")
+                            .password("")  // No es necesario ya que estamos usando JWT
                             .authorities(authorities)
                             .build();
 
