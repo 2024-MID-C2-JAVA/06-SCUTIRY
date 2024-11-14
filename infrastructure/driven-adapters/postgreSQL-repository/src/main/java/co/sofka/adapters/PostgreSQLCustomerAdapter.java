@@ -5,7 +5,7 @@ import co.sofka.config.PostgreSQLCustomerRepository;
 import co.sofka.data.CustomerEntity;
 import co.sofka.exception.NotFoundException;
 import co.sofka.exceptions.InvalidNameCustomerException;
-import co.sofka.out.CustomerRepository;
+import co.sofka.CustomerRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

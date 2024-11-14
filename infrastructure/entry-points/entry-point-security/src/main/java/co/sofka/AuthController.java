@@ -21,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseMs<AuthenticationResponse>> register(@RequestBody RequestMs<RegisterRequest> request) {
+    public ResponseEntity<ResponseMs<AuthenticationResponse>> register(@RequestBody RequestMs<UserRequest> request) {
         return ResponseEntity.ok(new ResponseMs<>(request.getDinHeader(), authHandler.register(request.getDinBody()), new DinError(DinErrorEnum.SUCCESS)));
     }
 
@@ -36,7 +36,7 @@ public class AuthController {
 
 
     @PostMapping("/getUser")
-    public ResponseEntity<ResponseMs<RegisterRequest>> getUser(@RequestBody RequestMs<UserEmailDto> dto) {
+    public ResponseEntity<ResponseMs<UserRequest>> getUser(@RequestBody RequestMs<UserEmailDto> dto) {
         return ResponseEntity.ok(new ResponseMs<>(dto.getDinHeader(),authHandler.getUserByEmail(dto.getDinBody()), new DinError(DinErrorEnum.SUCCESS)));
     }
 

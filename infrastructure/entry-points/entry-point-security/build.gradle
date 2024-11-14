@@ -4,8 +4,8 @@ dependencies {
 
     implementation project(':din')
     implementation project(':jwt-model')
-    implementation project(':jwt-usescases')
-    implementation project(':jwt-ports')
+    implementation project(':usescases')
+    implementation project(':ports')
 }
 
 tasks.named('bootJar') {

@@ -10,13 +10,17 @@ include ':web-security'
 include ':din'
 include ':cryptography'
 include ':ports'
-include ':jwt-ports'
 include ':jwt-model'
-include ':jwt-usescases'
 include ':entry-point-security'
+include ':info-bus'
+include ':log-service'
+include ':entry-point-sq-listener'
+include ':postgreSQL-log-repository'
+include ':log-model'
+
 
 findProject(':model').projectDir=file('./domain/model')
-findProject(':usescases').projectDir=file('./applications/usescases')
+findProject(':usescases').projectDir=file('./domain/usescases')
 findProject(':postgreSQL-repository').projectDir=file('./infrastructure/driven-adapters/postgreSQL-repository')
 findProject(':web').projectDir=file('./infrastructure/entry-points/web')
 findProject(':app-service').projectDir=file('./applications/app-service')
@@ -25,7 +29,10 @@ findProject(':web-security').projectDir=file("./infrastructure/helpers/web-secur
 findProject(':din').projectDir=file("./infrastructure/helpers/din")
 findProject(':cryptography').projectDir=file('./infrastructure/helpers/cryptography')
 findProject(':ports').projectDir=file('./domain/ports')
-findProject(':jwt-ports').projectDir=file('./domain/jwt-ports')
 findProject(':jwt-model').projectDir=file('./domain/jwt-model')
-findProject(':jwt-usescases').projectDir=file('./applications/jwt-usescases')
 findProject(':entry-point-security').projectDir=file('./infrastructure/entry-points/entry-point-security')
+findProject(':info-bus').projectDir=file('./infrastructure/driven-adapters/info-bus')
+findProject(':log-service').projectDir=file('./applications/log-service')
+findProject(':entry-point-sq-listener').projectDir=file('./infrastructure/entry-points/entry-point-sq-listener')
+findProject(':postgreSQL-log-repository').projectDir=file('./infrastructure/driven-adapters/postgreSQL-log-repository')
+findProject(':log-model').projectDir=file('./domain/log-model')

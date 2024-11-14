@@ -2,17 +2,14 @@ package co.sofka.adapters;
 
 import co.sofka.Account;
 import co.sofka.data.AccountDocument;
-import co.sofka.data.CustomerDocument;
 import co.sofka.data.UserDocument;
 import co.sofka.exception.GetNotFoundException;
-import co.sofka.out.AccountRepository;
+import co.sofka.AccountRepository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -80,11 +77,13 @@ public class MongoAccountAdapter implements AccountRepository {
     public void updateAccount(Account account) {
         Optional<UserDocument> accountDocument = Optional.ofNullable(mongoTemplate.findById(account.getId(), UserDocument.class));
 
-        if (accountDocument.isEmpty()) {
-            throw new GetNotFoundException("Account does not exist");
-        }
+        System.out.println("Documento: "+accountDocument.get());
 
-        accountDocument.get().getCustomer().getAccount().setAmount(account.getAmount());
+        BigDecimal amount = account.getAmount();
+
+        accountDocument.get().getCustomer().getAccount().setAmount(amount);
+
+        System.out.println("Bigdecimal: "+amount);
 
         mongoTemplate.save(accountDocument.get());
     }

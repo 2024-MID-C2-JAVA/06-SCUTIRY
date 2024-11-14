@@ -8,7 +8,7 @@ import co.sofka.data.CustomerEntity;
 import co.sofka.exception.AccountNumberException;
 import co.sofka.exception.InvalidAmountException;
 import co.sofka.exception.NotFoundException;
-import co.sofka.out.AccountRepository;
+import co.sofka.AccountRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;

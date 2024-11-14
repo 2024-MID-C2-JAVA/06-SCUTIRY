@@ -3,11 +3,9 @@ dependencies {
     implementation project(':entry-point-security')
     implementation project(':web')
     implementation project(':mongo-repository')
+    implementation project(':info-bus')
     implementation project(':usescases')
     implementation project(':web-security')
-    implementation project(':jwt-usescases')
-    implementation project(':jwt-ports')
-    implementation project(':jwt-model')
     implementation project(':cryptography')
 
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -18,6 +16,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-amqp:3.3.2')
 }
 
 bootJar {

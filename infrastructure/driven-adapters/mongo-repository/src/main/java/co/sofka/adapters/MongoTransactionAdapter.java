@@ -4,7 +4,7 @@ import co.sofka.Transaction;
 import co.sofka.data.TransactionDocument;
 import co.sofka.data.UserDocument;
 import co.sofka.exception.GetNotFoundException;
-import co.sofka.out.TransactionRepository;
+import co.sofka.TransactionRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;

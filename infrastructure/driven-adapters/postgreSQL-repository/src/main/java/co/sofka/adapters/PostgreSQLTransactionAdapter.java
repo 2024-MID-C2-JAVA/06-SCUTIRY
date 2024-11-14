@@ -9,14 +9,12 @@ import co.sofka.data.AccountTransactionEntity;
 import co.sofka.data.TransactionEntity;
 import co.sofka.exception.InvalidAmountException;
 import co.sofka.exception.TransactionNotFoundException;
-import co.sofka.out.TransactionRepository;
+import co.sofka.TransactionRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository

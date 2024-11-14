@@ -1,9 +1,5 @@
 package co.sofka.config;
 
-import co.sofka.AuthenticateUseCaseImpl;
-import co.sofka.GetUserByEmailUseCaseImpl;
-import co.sofka.RegisterUseCaseImpl;
-import co.sofka.out.AuthRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,20 +38,5 @@ public class AppConfig {
         return username -> {
             throw new UsernameNotFoundException("User not found: " + username);
         };
-    }
-
-    @Bean
-    public AuthenticateUseCaseImpl authenticate(AuthRepository authRepository){
-        return new AuthenticateUseCaseImpl(authRepository);
-    }
-
-    @Bean
-    public RegisterUseCaseImpl register(AuthRepository authRepository) {
-        return new RegisterUseCaseImpl(authRepository);
-    }
-
-    @Bean
-    public GetUserByEmailUseCaseImpl getUserByEmailUseCase(AuthRepository authRepository){
-        return new GetUserByEmailUseCaseImpl(authRepository);
     }
 }

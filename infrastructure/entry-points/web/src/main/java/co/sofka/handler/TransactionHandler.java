@@ -3,10 +3,10 @@ package co.sofka.handler;
 import co.sofka.Account;
 import co.sofka.Transaction;
 import co.sofka.data.transaction.TransactionDto;
-import co.sofka.usecase.account.GetAccountByIdUseCaseImpl;
-import co.sofka.usecase.account.UpdateAccountUseCaseImpl;
-import co.sofka.usecase.transaction.CreateTransactionUseCaseImpl;
-import co.sofka.usecase.transaction.GetTransactionByIdUseCaseImpl;
+import co.sofka.appservice.account.GetAccountByIdUseCase;
+import co.sofka.appservice.account.UpdateAccountUseCase;
+import co.sofka.appservice.transaction.CreateTransactionUseCase;
+import co.sofka.appservice.transaction.GetTransactionByIdUseCase;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 @Component
 public class TransactionHandler {
 
-    private final CreateTransactionUseCaseImpl transactionUseCase;
-    private final GetTransactionByIdUseCaseImpl transactionByIdUseCase;
-    private final UpdateAccountUseCaseImpl updateAccountUseCase;
-    private final GetAccountByIdUseCaseImpl getAccountByIdUseCase;
+    private final CreateTransactionUseCase transactionUseCase;
+    private final GetTransactionByIdUseCase transactionByIdUseCase;
+    private final UpdateAccountUseCase updateAccountUseCase;
+    private final GetAccountByIdUseCase getAccountByIdUseCase;;
 
-    public TransactionHandler(CreateTransactionUseCaseImpl transactionUseCase, GetTransactionByIdUseCaseImpl transactionByIdUseCase, UpdateAccountUseCaseImpl updateAccountUseCase, GetAccountByIdUseCaseImpl getAccountByIdUseCase) {
+    public TransactionHandler(CreateTransactionUseCase transactionUseCase, GetTransactionByIdUseCase transactionByIdUseCase, UpdateAccountUseCase updateAccountUseCase, GetAccountByIdUseCase getAccountByIdUseCase) {
         this.transactionUseCase = transactionUseCase;
         this.transactionByIdUseCase = transactionByIdUseCase;
         this.updateAccountUseCase = updateAccountUseCase;
@@ -37,7 +37,8 @@ public class TransactionHandler {
         Account account2=getAccountByIdUseCase.apply(account);
         transaction=transactionUseCase.apply(transaction);
         System.out.println("TRANSACCION: "+transaction);
-        updateAccountUseCase.updateAccount(account2,transaction);
+        account2.setId(transactionDTO.getAccountId());
+        updateAccountUseCase.apply(account2,transaction);
     }
 
 

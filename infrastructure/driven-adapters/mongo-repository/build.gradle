@@ -3,7 +3,6 @@ dependencies {
     implementation project(':ports')
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation project(':jwt-ports')
     implementation project(':jwt-model')
     implementation project(':web-security')
 

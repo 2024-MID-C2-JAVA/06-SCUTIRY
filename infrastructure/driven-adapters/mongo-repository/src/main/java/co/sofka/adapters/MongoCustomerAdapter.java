@@ -5,7 +5,7 @@ import co.sofka.config.JwtService;
 import co.sofka.data.CustomerDocument;
 import co.sofka.data.UserDocument;
 import co.sofka.exception.GetNotFoundException;
-import co.sofka.out.CustomerRepository;
+import co.sofka.CustomerRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;

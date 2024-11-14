@@ -4,9 +4,9 @@ import co.sofka.Account;
 import co.sofka.data.account.AccountDto;
 import co.sofka.exceptions.InvalidCreationException;
 import co.sofka.exceptions.InvalidFundsException;
-import co.sofka.usecase.account.CreateAccountUseCaseImpl;
-import co.sofka.usecase.account.DeleteAccountUseCaseImpl;
-import co.sofka.usecase.account.GetAccountByIdUseCaseImpl;
+import co.sofka.appservice.account.CreateAccountUseCase;
+import co.sofka.appservice.account.DeleteAccountUseCase;
+import co.sofka.appservice.account.GetAccountByIdUseCase;
 import cryptography.AESUtilAdapter;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +15,15 @@ import java.time.LocalDate;
 @Component
 public class AccountHandler {
 
-    private final CreateAccountUseCaseImpl createAccountUseCaseImpl;
-    private final GetAccountByIdUseCaseImpl getAccountByIdUseCaseImpl;
-    private final DeleteAccountUseCaseImpl deleteAccountUseCaseImpl;
+    private final CreateAccountUseCase createAccountUseCase;
+    private final GetAccountByIdUseCase getAccountByIdUseCase;
+    private final DeleteAccountUseCase deleteAccountUseCase;
 
 
-    public AccountHandler(CreateAccountUseCaseImpl createAccountUseCaseImpl, GetAccountByIdUseCaseImpl getAccountByIdUseCaseImpl, DeleteAccountUseCaseImpl deleteAccountUseCaseImpl) {
-        this.createAccountUseCaseImpl = createAccountUseCaseImpl;
-        this.getAccountByIdUseCaseImpl = getAccountByIdUseCaseImpl;
-        this.deleteAccountUseCaseImpl = deleteAccountUseCaseImpl;
+    public AccountHandler(CreateAccountUseCase createAccountUseCase, GetAccountByIdUseCase getAccountByIdUseCase, DeleteAccountUseCase deleteAccountUseCase) {
+        this.createAccountUseCase = createAccountUseCase;
+        this.getAccountByIdUseCase = getAccountByIdUseCase;
+        this.deleteAccountUseCase = deleteAccountUseCase;
     }
 
     public void createAccount(AccountDto accountDTO) {
@@ -33,7 +33,7 @@ public class AccountHandler {
             account.setAmount(accountDTO.getAmount());
             account.setCustomerId(accountDTO.getCustomerId());
             account.setCreatedAt(LocalDate.now());
-            createAccountUseCaseImpl.apply(account);
+            createAccountUseCase.apply(account);
         } catch (InvalidCreationException e) {
             throw new InvalidCreationException(e.getMessage());
         } catch (NumberFormatException e) {
@@ -46,14 +46,14 @@ public class AccountHandler {
     public void deleteAccount(AccountDto accountDTO) {
         Account account = new Account();
         account.setId(accountDTO.getId());
-        deleteAccountUseCaseImpl.apply(account);
+        deleteAccountUseCase.apply(account);
     }
 
     public AccountDto getAccountById(AccountDto accountDTO) {
         AESUtilAdapter adapter = new AESUtilAdapter();
         System.out.println("Account number en getAccountById: " + accountDTO.getNumber());
         try {
-            Account account = getAccountByIdUseCaseImpl.apply(new Account(Integer.parseInt(accountDTO.getNumber())));
+            Account account = getAccountByIdUseCase.apply(new Account(Integer.parseInt(accountDTO.getNumber())));
 
             return new AccountDto(
                     String.valueOf(account.getNumber()),

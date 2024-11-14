@@ -1,8 +1,0 @@
-dependencies {
-    implementation project(':jwt-model')
-}
-
-tasks.named('bootJar') {
-    enabled = true
-    mainClass = 'co.sofka.MainApplication'
-}
