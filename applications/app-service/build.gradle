@@ -19,8 +19,9 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-amqp:3.3.2')
 }
 
+
 bootJar {
     enabled = true
-    mainClass = 'co.sofka.MainApplication'
+    mainClass = 'co.sofka.MainServiceApplication'
     archiveBaseName.set('bank_application_v1')
 }
