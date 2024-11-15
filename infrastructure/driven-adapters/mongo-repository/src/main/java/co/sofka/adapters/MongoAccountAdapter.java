@@ -7,6 +7,8 @@ import co.sofka.exception.GetNotFoundException;
 import co.sofka.out.AccountRepository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -56,10 +58,11 @@ public class MongoAccountAdapter implements AccountRepository {
 
     @Override
     public Account getAccount(Account account) {
+        System.out.println("ID: "+account.getId());
         ObjectId objectId = new ObjectId(account.getId());
-        UserDocument user = mongoTemplate.findById(objectId, UserDocument.class);
-        //Query query = new Query(Criteria.where("customer.account_customer.number").is(account.getCustomerId()));
-        //UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
+        //UserDocument user = mongoTemplate.findById(objectId, UserDocument.class);
+        Query query = new Query(Criteria.where("_id").is(account.getId()));
+        UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
 
         if (account.getId() == null || account.getId().isEmpty()) {
             System.out.println("ID de cuenta no válido");

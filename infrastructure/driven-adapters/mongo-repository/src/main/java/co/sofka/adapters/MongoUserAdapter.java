@@ -4,8 +4,6 @@ import co.sofka.AuthenticationRequest;
 import co.sofka.AuthenticationResponse;
 import co.sofka.UserRequest;
 import co.sofka.config.JwtService;
-import co.sofka.data.CustomerDocument;
-import co.sofka.data.Roles;
 import co.sofka.data.UserDocument;
 import co.sofka.jwt.AuthRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -13,13 +11,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -62,23 +59,21 @@ public class MongoUserAdapter implements AuthRepository {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-
         Query query = new Query(Criteria.where("email").is(authenticationRequest.getEmail()));
         UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
-
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + authenticationRequest.getEmail());
         }
 
-
         if (!passwordEncoder.matches(authenticationRequest.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Invalid credentials provided");
         }
 
+        List<String> roles = List.of(user.getRole().toString());
 
-        String jwtToken = jwtService.generateTokenWithRole(user, user.getRole().toString());
 
+        String jwtToken = jwtService.generateToken(user, Map.of("roles", String.join(",", roles)));
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -92,18 +87,21 @@ public class MongoUserAdapter implements AuthRepository {
 
     @Override
     public UserRequest getUserByEmailUseCase(AuthenticationRequest authenticationRequest) {
-        Query query = new Query(Criteria.where("email").is(authenticationRequest.getEmail()));
-        UserDocument user = mongoTemplate.findOne(query, UserDocument.class);
+        Optional<UserDocument> optionalUser = Optional.ofNullable(mongoTemplate.findById(authenticationRequest.getEmail(), UserDocument.class));
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + authenticationRequest.getEmail());
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with id: " + authenticationRequest.getEmail());
         }
+
+        UserDocument user = optionalUser.get();
 
         return UserRequest.builder()
                 .id(user.getId())
                 .firstname(user.getFirstName())
                 .lastname(user.getLastName())
-                .email(user.getEmail()).build();
+                .email(user.getEmail())
+                .build();
     }
+
 
 }

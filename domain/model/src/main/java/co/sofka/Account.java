@@ -22,11 +22,15 @@ public class Account {
     }
 
 
-    public Account() {
+    public Account(String id) {
+        this.id = id;
     }
 
     public Account(int number) {
         this.number = number;
+    }
+
+    public Account() {
     }
 
     public String getId() {

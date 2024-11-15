@@ -1,6 +1,6 @@
 package co.sofka;
 
-import co.sofka.enums.Role;
+import co.sofka.enums.PayRole;
 import co.sofka.enums.TypeOfTransaction;
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ public class Transaction {
     private TypeOfTransaction type;
     private OffsetDateTime timeStamp;
     private String accountId;
-    private Role role;
+    private PayRole payRole;
 
     public Transaction(String id, BigDecimal amount, BigDecimal amountCost, TypeOfTransaction type, OffsetDateTime timeStamp) {
         this.id = id;
@@ -78,12 +78,12 @@ public class Transaction {
         this.accountId = accountId;
     }
 
-    public Role getRole() {
-        return role;
+    public PayRole getRole() {
+        return payRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(PayRole payRole) {
+        this.payRole = payRole;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Transaction {
                 ", type=" + type +
                 ", timeStamp=" + timeStamp +
                 ", accountId='" + accountId + '\'' +
-                ", role=" + role +
+                ", role=" + payRole +
                 '}';
     }
 }

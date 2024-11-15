@@ -47,11 +47,10 @@ public class AccountRestController {
     public ResponseEntity<ResponseAccountMs> getAccountById(@RequestBody RequestMs<AccountDto> dto) {
         try {
             AESUtilAdapter adapter = new AESUtilAdapter();
-            System.out.println("NUMERO DE CUENTA: "+dto.getDinBody().getNumber());
+
+            System.out.println("ACCOUNT ID: "+dto.getDinBody().getId());
 
             AccountDto accountDto = accountHandler.getAccountById(dto.getDinBody());
-            String number=adapter.encrypt(String.valueOf(dto.getDinBody().getNumber()));
-            accountDto.setNumber(number);
 
             dto.getDinHeader().setSymmetricalKey(adapter.getSymmetricKey());
             dto.getDinHeader().setInitializationVector(adapter.getInitializationVector());

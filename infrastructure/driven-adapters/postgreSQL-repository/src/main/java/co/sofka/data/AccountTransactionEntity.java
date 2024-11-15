@@ -1,6 +1,6 @@
 package co.sofka.data;
 
-import co.sofka.enums.Role;
+import co.sofka.enums.PayRole;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,7 +24,7 @@ public class AccountTransactionEntity {
 
     public AccountTransactionEntity() {
         this.id=new AccountTransactionId();
-        this.role =String.valueOf(Role.PAYROLL);
+        this.role =String.valueOf(PayRole.PAYROLL);
     }
 
     public AccountEntity getAccount() {

@@ -11,7 +11,8 @@ public class AccountDto {
     private String customerId;
     private LocalDate createdAt;
 
-    public AccountDto(String number, BigDecimal amount, String customerId, LocalDate createdAt) {
+    public AccountDto(String id,String number, BigDecimal amount, String customerId, LocalDate createdAt) {
+        this.id=id;
         this.number = number;
         this.amount = amount;
         this.customerId = customerId;

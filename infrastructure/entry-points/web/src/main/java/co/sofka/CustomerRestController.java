@@ -25,10 +25,8 @@ public class CustomerRestController {
                                                              @RequestHeader("Authorization") String authorizationHeader) {
         try {
             String token = authorizationHeader.replace("Bearer ", "");
-            System.out.println("TOKEN: " + token);
 
             CustomerDto dto = customerHandler.createCustomer(customerDTO.getDinBody(), token);
-
 
             return ResponseEntity.ok(new ResponseCustomerMs(customerDTO.getDinHeader(),
                     dto,

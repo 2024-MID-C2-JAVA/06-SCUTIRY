@@ -50,12 +50,11 @@ public class AccountHandler {
     }
 
     public AccountDto getAccountById(AccountDto accountDTO) {
-        AESUtilAdapter adapter = new AESUtilAdapter();
-        System.out.println("Account number en getAccountById: " + accountDTO.getNumber());
         try {
-            Account account = getAccountByIdUseCase.apply(new Account(Integer.parseInt(accountDTO.getNumber())));
+            Account account = getAccountByIdUseCase.apply(new Account(accountDTO.getId()));
 
             return new AccountDto(
+                    account.getId(),
                     String.valueOf(account.getNumber()),
                     account.getAmount(),
                     account.getCustomerId(),

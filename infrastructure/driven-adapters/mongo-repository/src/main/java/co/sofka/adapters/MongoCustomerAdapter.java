@@ -41,8 +41,6 @@ public class MongoCustomerAdapter implements CustomerRepository {
         assert user != null;
         user.setCustomer(customerDocument);
 
-        System.out.println("ID USUARIO: "+user.getId());
-
         mongoTemplate.save(user);
 
         return new Customer(user.getId()

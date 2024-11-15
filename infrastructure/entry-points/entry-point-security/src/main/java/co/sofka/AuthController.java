@@ -1,7 +1,7 @@
 package co.sofka;
 
 
-import co.sofka.data.UserEmailDto;
+import co.sofka.data.UserIdDto;
 import co.sofka.handler.AuthHandler;
 import din.DinError;
 import din.DinErrorEnum;
@@ -35,8 +35,8 @@ public class AuthController {
     }
 
 
-    @PostMapping("/getUser")
-    public ResponseEntity<ResponseMs<UserRequest>> getUser(@RequestBody RequestMs<UserEmailDto> dto) {
+    @PostMapping("/getUserById")
+    public ResponseEntity<ResponseMs<UserRequest>> getUser(@RequestBody RequestMs<UserIdDto> dto) {
         return ResponseEntity.ok(new ResponseMs<>(dto.getDinHeader(),authHandler.getUserByEmail(dto.getDinBody()), new DinError(DinErrorEnum.SUCCESS)));
     }
 

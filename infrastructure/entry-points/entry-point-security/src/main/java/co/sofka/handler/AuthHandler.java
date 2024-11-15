@@ -1,7 +1,7 @@
 package co.sofka.handler;
 
 import co.sofka.*;
-import co.sofka.data.UserEmailDto;
+import co.sofka.data.UserIdDto;
 import co.sofka.appservice.jwt.AuthenticateUseCase;
 import co.sofka.appservice.jwt.GetUserByEmailUseCase;
 import co.sofka.appservice.jwt.RegisterUseCase;
@@ -29,9 +29,9 @@ public class AuthHandler {
         return registerUseCase.apply(userRequest);
     }
 
-    public UserRequest getUserByEmail(UserEmailDto userEmailDto) {
+    public UserRequest getUserByEmail(UserIdDto userIdDto) {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest();
-        authenticationRequest.setEmail(userEmailDto.getEmail());
+        authenticationRequest.setEmail(userIdDto.getId());
         return getUserByEmailUseCase.getUserByEmail(authenticationRequest);
     }
 

@@ -1,5 +1,6 @@
 package co.sofka.config;
 
+import com.mongodb.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,47 +26,46 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userEmail;
 
-        if (authHeader == null || !authHeader.startsWith("Bearer")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        String jwt = authHeader.substring(7);
+        String userEmail = jwtService.extractUsername(jwt);
 
-        if (userEmail != null) {
-            // Obtener el rol desde el JWT
+        if(userEmail != null) {
             var authoritiesClaims = jwtService.extractAllClaims(jwt).get("roles");
-            String role = authoritiesClaims != null ? authoritiesClaims.toString() : null;
-
-            // Si hay un rol, convertirlo en autoridad
-            var authorities = (role != null) ?
-                    AuthorityUtils.createAuthorityList(role) :
+            var authorities = authoritiesClaims != null ?
+                    AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesClaims.toString()) :
                     AuthorityUtils.NO_AUTHORITIES;
 
-            UserDetails userDetails =
-                    User.withUsername(userEmail)
-                            .password("")  // No es necesario ya que estamos usando JWT
-                            .authorities(authorities)
-                            .build();
+            UserDetails userDetails = User
+                    .withUsername(userEmail)
+                    .password("")
+                    .authorities(authorities)
+                    .build();
 
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails,
-                                null,
-                                authorities
-                        );
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities()
+                );
+
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+
         filterChain.doFilter(request, response);
     }
 }
+
