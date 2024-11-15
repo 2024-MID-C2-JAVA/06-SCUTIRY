@@ -1,12 +1,12 @@
 package co.sofka;
 
-import co.sofka.rabbitMq.Bus;
+import co.sofka.rabbitMq.SuccessBus;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BusAdapter implements Bus {
+public class SuccessBusAdapter implements SuccessBus {
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -16,16 +16,13 @@ public class BusAdapter implements Bus {
     @Value("${SUCCESS_ROUTING_KEY}")
     private String SUCCESS_ROUTING_KEY;
 
-    @Value("${ERROR_ROUTING_KEY}")
-    private String ERROR_ROUTING_KEY;
-
-    public BusAdapter(RabbitTemplate rabbitTemplate) {
+    public SuccessBusAdapter(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
-    public void sendMessage(String message, boolean isSuccess) {
-        String routingKey = isSuccess ? SUCCESS_ROUTING_KEY : ERROR_ROUTING_KEY;
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, message);
+    public void sendSuccessMessage(String message) {
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, SUCCESS_ROUTING_KEY, message);
     }
+
 }

@@ -4,14 +4,14 @@ import co.sofka.Account;
 import co.sofka.Transaction;
 import co.sofka.out.AccountRepository;
 import co.sofka.appservice.account.strategy.AccountUpdateContext;
-import co.sofka.rabbitMq.Bus;
+import co.sofka.rabbitMq.SuccessBus;
 
 
 public class UpdateAccountUseCase {
-    private final Bus bus;
+    private final SuccessBus bus;
     private final AccountRepository accountRepository;
 
-    public UpdateAccountUseCase(Bus bus, AccountRepository accountRepository) {
+    public UpdateAccountUseCase(SuccessBus bus, AccountRepository accountRepository) {
         this.bus = bus;
         this.accountRepository = accountRepository;
     }
