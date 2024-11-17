@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ObtenerLogsHandler {
-
     private final LogRepository logRepository;
 
     public ObtenerLogsHandler(LogRepository logRepository) {
@@ -22,10 +21,10 @@ public class ObtenerLogsHandler {
     }
 
     public DinResponse<List<LogDocument>> obtenerLogs(DinRequest<LogFilterDTO> request) {
-        // Obtén todos los logs de la base de datos
+
         List<LogDocument> logs = logRepository.findAll();
 
-        // Filtrar por tipoOperacion si se especifica
+
         if (request.getDinBody() != null && request.getDinBody().getTipoOperacion() != null) {
             String tipoOperacion = request.getDinBody().getTipoOperacion();
             logs = logs.stream()
@@ -33,7 +32,6 @@ public class ObtenerLogsHandler {
                     .collect(Collectors.toList());
         }
 
-        // Retornar la respuesta con los logs filtrados
         return new DinResponse<>(logs);
     }
 }

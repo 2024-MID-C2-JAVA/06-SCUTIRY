@@ -25,15 +25,33 @@ public class ObtenerCuentasHandler {
         this.customerRepository = customerRepository;
     }
 
-    public DinResponse<List<AccountResponseDTO>> obtenerCuentas() {
-        List<Account> cuentas = accountRepository.findAll();
+    public DinResponse<List<AccountResponseDTO>> obtenerCuentas(String customer, int customerId) {
+        List<Account> cuentas;
+
+        // Determinar si devolver todas las cuentas o filtrar
+        if ("all".equalsIgnoreCase(customer) && customerId == -1) {
+            cuentas = accountRepository.findAll(); // Todas las cuentas
+        } else {
+            // Filtrar cuentas por customerId y opcionalmente por customer (nombre)
+            cuentas = accountRepository.findAll().stream()
+                    .filter(cuenta -> cuenta.getCustomerId() == customerId)
+                    .filter(cuenta -> "all".equalsIgnoreCase(customer) ||
+                            customer.equalsIgnoreCase(
+                                    customerRepository.findById(cuenta.getCustomerId())
+                                            .map(ClienteDocument::getUsername)
+                                            .orElse("Desconocido")
+                            ))
+                    .collect(Collectors.toList());
+        }
+
+        // Mapear las cuentas a la respuesta
         List<AccountResponseDTO> respuesta = cuentas.stream().map(cuenta -> {
             AccountResponseDTO dto = new AccountResponseDTO();
             dto.setId(cuenta.getId());
             dto.setNumber(cuenta.getNumber());
             dto.setAmount(cuenta.getAmount());
 
-
+            // Asignar datos del cliente
             Optional<ClienteDocument> cliente = customerRepository.findById(cuenta.getCustomerId());
             dto.setCustomer(cliente.map(ClienteDocument::getUsername).orElse("Desconocido"));
             dto.setCustomerId(cuenta.getCustomerId());
@@ -43,6 +61,7 @@ public class ObtenerCuentasHandler {
             return dto;
         }).collect(Collectors.toList());
 
+        // Construir la respuesta
         DinResponse<List<AccountResponseDTO>> response = new DinResponse<>();
         response.setDinBody(respuesta);
         response.setDinError(new DinError("N", "0000", "Listado de cuentas obtenido exitosamente", "Operación completada sin errores"));

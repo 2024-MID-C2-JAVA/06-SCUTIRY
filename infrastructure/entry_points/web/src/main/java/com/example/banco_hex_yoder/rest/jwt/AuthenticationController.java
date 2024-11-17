@@ -3,12 +3,15 @@ package com.example.banco_hex_yoder.rest.jwt;
 import com.example.banco_hex_yoder.din.request.DinRequest;
 import com.example.banco_hex_yoder.din.response.DinResponse;
 import com.example.banco_hex_yoder.din.generic.DinError;
+import com.example.banco_hex_yoder.dtos.customerDTO.CustomerResponseDTO;
 import com.example.banco_hex_yoder.dtos.loginDTO.AuthenticationResponseDTO;
 import com.example.banco_hex_yoder.dtos.accountDTO.AccountResponseDTO;
 import com.example.banco_hex_yoder.dtos.loginDTO.LoginRequestDTO;
 import com.example.banco_hex_yoder.mongo_repository.data.repositorios.AccountMongoRepository;
+import com.example.banco_hex_yoder.mongo_repository.data.repositorios.CustomerMongoRepository;
 import com.example.banco_hex_yoder.security_jwt.JwtUtil;
 import com.example.banco_hex_yoder.security_jwt.UserDetailsServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper; // Importa ObjectMapper
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,12 @@ public class AuthenticationController {
 
     @Autowired
     private AccountMongoRepository accountMongoRepository;
+
+    @Autowired
+    private CustomerMongoRepository customerMongoRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper; // Inyecta ObjectMapper
 
     @Operation(summary = "login", description = "genera un jwt")
     @PostMapping("/login")
@@ -76,6 +85,24 @@ public class AuthenticationController {
                             dto.setCustomerId(account.getCustomerId());
                             dto.setCreatedAt(account.getCreatedAt());
                             dto.setDeleted(account.isDeleted());
+
+                            // Fetch customer details and convert to JSON string
+                            customerMongoRepository.findById(account.getCustomerId())
+                                    .ifPresent(customer -> {
+                                        try {
+                                            CustomerResponseDTO customerDto = new CustomerResponseDTO(
+                                                    customer.getId(),
+                                                    customer.getUsername(),
+                                                    customer.getCreatedAt(),
+                                                    customer.isDeleted()
+                                            );
+                                            String customerJson = objectMapper.writeValueAsString(customerDto); // Convert to JSON string
+                                            dto.setCustomer(customerJson); // Asignar como String
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+
                             return dto;
                         }).collect(Collectors.toList());
             }
@@ -92,6 +119,4 @@ public class AuthenticationController {
 
         return response;
     }
-
-
 }
