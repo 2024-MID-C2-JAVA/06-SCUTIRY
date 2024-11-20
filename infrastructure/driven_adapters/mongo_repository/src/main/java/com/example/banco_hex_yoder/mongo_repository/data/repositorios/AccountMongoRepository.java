@@ -93,7 +93,15 @@ public class AccountMongoRepository {
         }
 
         account.setCustomerId(document.getInteger("customer_id"));
-        account.setCreatedAt(document.getDate("created_at").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+        Date createdAtDate = document.getDate("created_at");
+        if (createdAtDate != null) {
+            account.setCreatedAt(createdAtDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        } else {
+
+            account.setCreatedAt(null);
+        }
+
         account.setDeleted(document.getBoolean("is_deleted", false));
 
         return account;
