@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(':usecases')
+    implementation project(':logs_repository')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3' // Usa la última versión disponible
+
+}

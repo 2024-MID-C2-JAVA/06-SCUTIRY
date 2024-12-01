@@ -1,0 +1,21 @@
+
+
+dependencies {
+    implementation project(':usecases')
+    implementation project(':mq_listener')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+
+}
+
+tasks.named('bootJar') {
+    mainClass.set('com.example.banco_hex_yoder.MainApplication')
+}
+
+springBoot {
+    mainClass = 'com.example.banco_hex_yoder.MainApplication'
+}

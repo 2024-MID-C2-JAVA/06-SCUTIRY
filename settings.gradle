@@ -1,0 +1,29 @@
+rootProject.name = 'banco_hex_yoder'
+
+include ':app_service'
+include ':model'
+include ':usecases'
+include ':log_service'
+include ':exceptions'
+include ':encriptacion'
+include ':mongo_repository'
+include ':postgresql_repository'
+include ':mq_listener'
+include ':web'
+include ':security_jwt'
+include ':info_bus'
+include ':logs_repository'
+findProject(':postgresql_repository').projectDir = file('./infrastructure/driven_adapters/postgresql_repository')
+findProject(':encriptacion').projectDir = file('./infrastructure/driven_adapters/encriptacion')
+findProject(':info_bus').projectDir = file('/infrastructure/driven_adapters/info_bus')
+findProject(':logs_repository').projectDir = file('/infrastructure/driven_adapters/logs_repository')
+findProject(':web').projectDir = file('./infrastructure/entry_points/web')
+findProject(':mq_listener').projectDir = file('./infrastructure/entry_points/mq_listener')
+findProject(':mongo_repository').projectDir = file('./infrastructure/driven_adapters/mongo_repository')
+findProject(':exceptions').projectDir = file('./infrastructure/helper/utils/exceptions')
+findProject(':model').projectDir = file('./domain/model')
+findProject(':usecases').projectDir = file('./domain/usecases')
+findProject(':security_jwt').projectDir = file('./infrastructure/helper/security_jwt')
+findProject(':app_service').projectDir = file('./applications/app_service')
+findProject(':log_service').projectDir = file('./applications/log_service')
+
