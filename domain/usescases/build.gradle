@@ -1,0 +1,8 @@
+dependencies {
+   implementation project(':model')
+   implementation project(':jwt-model')
+   implementation project(':log-model')
+   implementation project(':ports')
+
+   implementation 'org.springframework.boot:spring-boot-starter'
+}

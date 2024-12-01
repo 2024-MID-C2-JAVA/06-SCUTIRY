@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':postgreSQL-log-repository')
+    implementation project(':usescases')
+    implementation project(':din')
+    implementation project(':ports')
+    implementation project(':log-model')
+
+
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+}

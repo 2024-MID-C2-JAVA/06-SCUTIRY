@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':log-model');
+    implementation project(':jwt-model')
+}

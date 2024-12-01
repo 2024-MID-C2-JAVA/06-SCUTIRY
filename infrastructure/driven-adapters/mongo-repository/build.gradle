@@ -1,0 +1,16 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':ports')
+    implementation project(':jwt-model')
+    implementation project(':web-security')
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+}
+
+tasks.named('bootJar') {
+    enabled = true
+    mainClass = 'co.sofka.MainApplication'
+}
